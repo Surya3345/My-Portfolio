@@ -4,8 +4,13 @@ import { FaArrowDown, FaDownload } from 'react-icons/fa';
 const Hero = () => {
   const handleDownloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/DODDIPATLA_SURYASAIRAM_FRESHER_RESUME.pdf';
+    // Using process.env.PUBLIC_URL to ensure correct path in both dev and prod
+    link.href = `${process.env.PUBLIC_URL}/DODDIPATLA_SURYASAIRAM_FRESHER_RESUME.pdf`;
     link.download = 'DODDIPATLA_SURYASAIRAM_FRESHER_RESUME.pdf';
+    link.target = '_blank'; // Open in new tab as fallback
+    link.rel = 'noopener noreferrer';
+    
+    // Append to body, click and remove
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -17,10 +22,10 @@ const Hero = () => {
         <div className="text-center text-white">
           <div className="mb-4">
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 animate-fade-in">
-              DODDUPATI A SURYA SAIRAM
+              DODDIPATLA SURYA SAIRAM
             </h1>
             <h2 className="text-lg md:text-xl lg:text-2xl font-medium mb-3 text-teal-100">
-              Computer Science Graduate & Backend Developer
+              Java Full-Stack Developer
             </h2>
             <p className="text-sm md:text-base max-w-xl mx-auto mb-4 text-gray-200 leading-relaxed">
               Computer Science graduate with a strong foundation in programming, data structures, and backend development. 

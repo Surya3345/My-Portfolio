@@ -17,13 +17,19 @@ const About = () => {
         {/* Profile Image - Centered */}
         <div className="text-center mb-8">
           <div className="relative inline-block">
-            <div className="w-32 h-32 mx-auto bg-gradient-to-br from-primary-500 to-teal-500 rounded-full flex items-center justify-center">
-              <div className="w-28 h-28 bg-white rounded-full flex items-center justify-center">
-                <FaCode className="text-2xl text-primary-600" />
-              </div>
+            <div className="w-40 h-40 mx-auto rounded-full overflow-hidden border-4 border-white shadow-lg">
+              <img 
+                src={`${process.env.PUBLIC_URL}/Passportsize_Photo.png`} 
+                alt="Profile" 
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.error('Error loading profile image:', e);
+                  e.target.style.display = 'none';
+                }}
+              />
             </div>
-            <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
-              <FaGraduationCap className="text-sm text-white" />
+            <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center shadow-md">
+              <FaGraduationCap className="text-lg text-white" />
             </div>
           </div>
         </div>
