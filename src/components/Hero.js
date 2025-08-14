@@ -3,17 +3,40 @@ import { FaArrowDown, FaDownload } from 'react-icons/fa';
 
 const Hero = () => {
   const handleDownloadResume = () => {
-    const link = document.createElement('a');
-    // Using process.env.PUBLIC_URL to ensure correct path in both dev and prod
-    link.href = `${process.env.PUBLIC_URL}/DODDIPATLA_SURYASAIRAM_FRESHER_RESUME.pdf`;
-    link.download = 'DODDIPATLA_SURYASAIRAM_FRESHER_RESUME.pdf';
-    link.target = '_blank'; // Open in new tab as fallback
-    link.rel = 'noopener noreferrer';
+    // For GitHub Pages, we need to use the full URL in production
+    const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const baseUrl = isLocalhost 
+      ? '' 
+      : 'https://surya3345.github.io/My-Portfolio';
+      
+    const resumeUrl = `${baseUrl}/DODDIPATLA_SURYASAIRAM_FRESHER_RESUME.pdf`;
     
-    // Append to body, click and remove
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Try to open in a new tab first (works on most browsers)
+    const newWindow = window.open(resumeUrl, '_blank', 'noopener,noreferrer');
+    
+    // If the new window was blocked, try the download approach
+    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+      try {
+        const link = document.createElement('a');
+        link.href = resumeUrl;
+        link.download = 'DODDIPATLA_SURYASAIRAM_RESUME.pdf';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        
+        // This is needed for Firefox
+        document.body.appendChild(link);
+        link.click();
+        
+        // Clean up
+        setTimeout(() => {
+          document.body.removeChild(link);
+        }, 100);
+      } catch (error) {
+        console.error('Error downloading resume:', error);
+        // Last resort: direct window location change
+        window.location.href = resumeUrl;
+      }
+    }
   };
 
   return (
