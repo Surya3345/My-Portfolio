@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { scrollToSection } from '../utils/navigation';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,12 +16,16 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e, href) => {
+    scrollToSection(e, href);
+    setIsOpen(false);
+  };
+
   const navItems = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Certificates', href: '#certificates' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -40,6 +45,7 @@ const Navbar = () => {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className={`font-medium transition-colors duration-300 hover:text-primary-600 ${
                   scrolled ? 'text-gray-700' : 'text-white'
                 }`}
@@ -67,8 +73,8 @@ const Navbar = () => {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className="block py-3 px-4 text-gray-700 hover:text-primary-600 hover:bg-gray-50 transition-colors duration-300"
-                onClick={() => setIsOpen(false)}
               >
                 {item.name}
               </a>
